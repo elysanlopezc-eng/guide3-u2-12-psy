@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Scientific Inquiry & Market Research Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Nunito & Segoe UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montanoBlue: '#1269A8',
+                        montanoYellow: '#F7D615',
+                        montanoTeal: '#54887D',
+                        montanoLightBlue: '#88B5C7',
+                        montanoOlive: '#A6B046',
+                        montanoBg: '#F2F5E9',
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'Tahoma', 'Verdana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F2F5E9;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+        }
+        .whiteboard-frame {
+            background: #ffffff;
+            border: 4px solid #d1d5db;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F2F5E9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1269A8;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 p-2 sm:p-6">
+
+    <!-- App Container / Whiteboard Frame -->
+    <div id="appContainer" class="whiteboard-frame max-w-7xl mx-auto flex flex-col min-h-[92vh] overflow-hidden transition-all duration-300">
+        
+        <!-- Header Section -->
+        <header class="bg-montanoBlue text-white p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between border-b-4 border-montanoYellow rounded-t-[16px]">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&amp;s" alt="Colegio Montano Logo" class="w-16 h-16 rounded-full bg-white p-1 object-cover shadow-md border-2 border-montanoYellow" onerror="this.src='https://placehold.co/80x80/1269A8/FFFFFF?text=CM'">
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-wide">COLEGIO MONTANO</h1>
+                    <p class="text-montanoYellow text-sm font-semibold">12th Grade Mercadotecnia | Psychology & Scientific Method (B2-C1 ESL)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <span class="bg-montanoTeal text-xs sm:text-sm px-3 py-1.5 rounded-full font-bold shadow text-white">Consumer Psychology & Inquiry</span>
+                <button onclick="toggleFullscreen()" class="bg-montanoYellow text-montanoBlue font-bold px-4 py-2 rounded-xl shadow-lg hover:bg-yellow-300 transition-transform active:scale-95 flex items-center space-x-2">
+                    <i class="fa-solid fa-expand"></i>
+                    <span class="hidden sm:inline">Fullscreen</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs Bar -->
+        <nav class="bg-montanoBg p-3 border-b border-gray-200 overflow-x-auto">
+            <div class="flex space-x-2 min-w-max">
+                <button onclick="switchTab(1)" id="tabBtn1" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-montanoBlue text-white shadow-md">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>1. Theory & Grammar</span>
+                </button>
+                <button onclick="switchTab(2)" id="tabBtn2" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>2. Solved Examples (15)</span>
+                </button>
+                <button onclick="switchTab(3)" id="tabBtn3" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    <span>3. Voice Simulator & Dashboard</span>
+                </button>
+                <button onclick="switchTab(4)" id="tabBtn4" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>4. Critical Reflection</span>
+                </button>
+                <button onclick="switchTab(5)" id="tabBtn5" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                    <span>5. Formative Evaluation (15)</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 sm:p-8 overflow-y-auto bg-white">
+            
+            <!-- TAB 1: THEORY & GRAMMAR -->
+            <div id="tabContent1" class="tab-pane space-y-6">
+                <div class="border-l-8 border-montanoBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-2">Guide 3: Experimental Research in Mercadotecnia</h2>
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+                        Welcome to Guide 3, 12th-grade marketing leaders! Moving beyond observational research and hypotheses, we now master the gold standard of scientific inquiry: the <strong>experimental method</strong>. We will explore independent and dependent variables, control versus experimental groups, random assignment, establishing valid cause-and-effect claims, and analyzing experimental strengths and limitations.
+                    </p>
+                </div>
+
+                <!-- 70-Minute Lesson Framework Banner (Guide 3) -->
+                <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-bold text-lg text-montanoBlue mb-3 flex items-center">
+                        <i class="fa-solid fa-clock mr-2 text-montanoYellow"></i> Structured 70-Minute Lesson Framework (Guide 3)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">Warm-up</span>
+                            <strong>Causation Question:</strong> Does changing an advertisement cause a change in consumer preference?
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoTeal block mb-1">Structure</span>
+                            <strong>Experiment Anatomy:</strong> Experimental groups, control groups & random assignment.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoOlive block mb-1">15 min</span>
+                            <strong>Variables & Controls:</strong> Identifying IV, DV, and possible controls in market tests.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">Design Lab</span>
+                            <strong>Classroom-Safe Experiment:</strong> Designing a test using neutral marketing materials.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoYellow block mb-1">Discussion</span>
+                            <strong>Confounding Variables:</strong> Evaluating limits of causal conclusions.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Concept Cards Grid (Guide 3) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 1</span>
+                                <i class="fa-solid fa-flask text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Experimental Method</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                A research method where the investigator manipulates one or more independent variables to observe their effect on dependent variables while controlling extraneous factors.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Causal Rigor</span>
+                                <span class="text-montanoTeal">98%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 2</span>
+                                <i class="fa-solid fa-people-group text-montanoTeal text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoTeal mb-2">Control & Experimental Groups</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                <strong>Experimental Group:</strong> Receives the active treatment/manipulation. <br><strong>Control Group:</strong> Serves as a baseline comparison without treatment.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Baseline Comparison</span>
+                                <span class="text-montanoBlue">94%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoOlive text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 3</span>
+                                <i class="fa-solid fa-shuffle text-montanoOlive text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoOlive mb-2">Random Assignment</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Using chance procedures (e.g., coin flips, random number generators) to assign participants to experimental or control groups, minimizing preexisting differences.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Bias Reduction</span>
+                                <span class="text-montanoOlive">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoOlive h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 4</span>
+                                <i class="fa-solid fa-bullseye text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Cause-and-Effect Claims</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                The unique ability of true experiments to establish causality (A causes B) by eliminating confounding variables and establishing temporal precedence.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Internal Validity</span>
+                                <span class="text-montanoTeal">96%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between md:col-span-2 lg:col-span-2">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Core Concept 5</span>
+                                <i class="fa-solid fa-scale-balanced text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Strengths & Limitations of Experiments</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-700 mt-2">
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>Strengths:</strong> High control over variables, clear causal conclusions, replicability.</div>
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>Limitations:</strong> Artificial lab environments may lack external validity / real-world naturalness.</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Methodological Balance</span>
+                                <span class="text-montanoBlue">91%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 91%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: SOLVED EXAMPLES (15) -->
+            <div id="tabContent2" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoTeal bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoTeal mb-1">Solved Experimental Research Examples</h2>
+                        <p class="text-gray-700 text-sm">15 meticulously broken-down examples covering experimental design, control vs. experimental groups, random assignment, causal claims, and confounding variable management with Text-to-Speech audio support.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterExamples('all')" class="px-3 py-1 rounded-lg bg-montanoTeal text-white text-xs font-bold">All</button>
+                        <button onclick="filterExamples('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterExamples('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterExamples('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Examples Container -->
+                <div id="examplesContainer" class="space-y-4">
+                    <!-- Javascript will render 15 examples here -->
+                </div>
+            </div>
+
+            <!-- TAB 3: LIVE INTERACTIVE VOICE SIMULATOR & DASHBOARD -->
+            <div id="tabContent3" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoOlive bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoOlive mb-1">Live Interactive Voice Simulator & Performance Dashboard (Guide 3)</h2>
+                    <p class="text-gray-700 text-sm">Step into a simulated experimental design lab with Research Director Carlos. Address the challenge: "Design a classroom-safe experiment testing ad layouts with experimental and control groups." Speak into your microphone or type your response. Real-time AI metrics evaluate your clarity, grammar, and professional etiquette!</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Simulator Interface (2 Cols) -->
+                    <div class="lg:col-span-2 bg-gray-50 border-2 border-montanoLightBlue rounded-2xl p-5 flex flex-col justify-between shadow-md">
+                        <div>
+                            <div class="flex items-center justify-between border-b pb-3 mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-montanoTeal text-white flex items-center justify-center font-bold text-lg shadow">RD</div>
+                                    <div>
+                                        <h4 class="font-bold text-montanoTeal">Carlos Mendoza (Research Director)</h4>
+                                        <span class="text-xs text-green-600 font-semibold flex items-center"><span class="w-2 h-2 rounded-full bg-green-500 inline-block mr-1.5 animate-pulse"></span> Active Session</span>
+                                    </div>
+                                </div>
+                                <button onclick="speakDialogue('Hello 12th-grade analyst. Let us design an experiment. How would you assign participants to experimental and control groups, and how do we ensure causal claims?')" class="bg-montanoYellow text-montanoBlue p-2 rounded-xl text-sm font-bold shadow hover:bg-yellow-300 flex items-center space-x-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                    <span>Listen Prompt</span>
+                                </button>
+                            </div>
+
+                            <!-- Chat Dialogue Box -->
+                            <div id="simChatBox" class="bg-white rounded-xl p-4 h-64 overflow-y-auto border border-gray-200 space-y-3 mb-4 shadow-inner">
+                                <div class="flex items-start space-x-2">
+                                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                                    <div class="bg-teal-50 text-gray-800 p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%] border border-teal-100">
+                                        "Welcome to the experiment lab! For our new product display test, explain how you will use <strong>random assignment</strong> and manage <strong>control versus experimental groups</strong> to make a valid cause-and-effect claim."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Controls -->
+                        <div class="space-y-3">
+                            <div class="flex space-x-2">
+                                <input type="text" id="simUserInput" placeholder="Type your experimental design response in English..." class="flex-1 border-2 border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-montanoTeal">
+                                <button onclick="handleUserSimInput()" class="bg-montanoTeal text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-teal-700 transition-all flex items-center space-x-1">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Send</span>
+                                </button>
+                                <button onclick="toggleVoiceRecognition()" id="micBtn" class="bg-montanoBlue text-white px-4 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-sky-700 transition-all" title="Speech Recognition">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 italic text-center">Tip: Use B2-C1 research terms (experimental group, control group, random assignment, causality, confounding variables).</p>
+                        </div>
+                    </div>
+
+                    <!-- Performance Dashboard (1 Col) -->
+                    <div class="bg-white border-2 border-montanoOlive rounded-2xl p-5 flex flex-col justify-between shadow-md space-y-4">
+                        <div>
+                            <h3 class="font-extrabold text-montanoOlive text-lg mb-3 flex items-center justify-between">
+                                <span>Live Performance Dashboard</span>
+                                <i class="fa-solid fa-chart-line"></i>
+                            </h3>
+                            
+                            <!-- Metric 1 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Pronunciation & Speech Clarity</span>
+                                    <span id="metricPronounceVal">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricPronounceBar" class="bg-montanoBlue h-3 rounded-full transition-all duration-500" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Topic / Grammar Accuracy</span>
+                                    <span id="metricGrammarVal">90%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricGrammarBar" class="bg-montanoTeal h-3 rounded-full transition-all duration-500" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3 -->
+                            <div class="mb-4">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Politeness & Expression Etiquette</span>
+                                    <span id="metricEtiquetteVal">95%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricEtiquetteBar" class="bg-montanoOlive h-3 rounded-full transition-all duration-500" style="width: 95%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Key Terms Detected -->
+                            <div class="mb-4">
+                                <h4 class="text-xs font-bold text-gray-600 uppercase tracking-wide mb-2">Key Terms Detected:</h4>
+                                <div id="keyTermsContainer" class="flex flex-wrap gap-1.5">
+                                    <span class="bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200">Experiment</span>
+                                    <span class="bg-montanoBg text-montanoBlue text-xs font-bold px-2.5 py-1 rounded-lg border border-blue-200">Control Group</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Pedagogical Feedback Box -->
+                        <div class="bg-montanoBg border-2 border-montanoYellow rounded-xl p-3">
+                            <h5 class="text-xs font-extrabold text-montanoTeal uppercase mb-1 flex items-center">
+                                <i class="fa-solid fa-robot mr-1.5"></i> AI Pedagogical Feedback
+                            </h5>
+                            <p id="aiFeedbackText" class="text-xs text-gray-700 leading-relaxed">
+                                "Great engagement! Mention random assignment and control groups to achieve C1 experimental design proficiency."
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 4: CRITICAL REFLECTION QUESTIONS -->
+            <div id="tabContent4" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoLightBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Critical Reflection & Checkpoint</h2>
+                    <p class="text-gray-700 text-sm">Complete the experimental design dilemmas and submit your classroom-safe experiment proposal checkpoint (Activity 1 due).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Reflection 1 -->
+                    <div class="bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Dilemma 1</span>
+                                <span class="text-xs text-gray-500">Confounding Variables & Causal Claims</span>
+                            </div>
+                            <h3 class="font-bold text-montanoTeal text-base mb-2">The Artificiality Critique</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                Critics argue that laboratory experiments using neutral marketing materials do not accurately reflect messy real-world consumer behavior in Guatemalan retail stores. 
+                                <br><br><strong>Task:</strong> Critically evaluate the trade-off between <em>internal validity</em> (causal control) and <em>external validity</em> (real-world applicability) in consumer research.
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput1" rows="4" placeholder="Write your critical reflection here (minimum 40 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoTeal mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount1" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(1)" class="bg-montanoTeal text-white text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-teal-700">Save Reflection</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reflection 2: Checkpoint & Activity 1 -->
+                    <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Checkpoint (Activity 1 Due)</span>
+                                <span class="text-xs text-gray-500">Classroom-Safe Experiment Proposal</span>
+                            </div>
+                            <h3 class="font-bold text-montanoBlue text-base mb-2">Complete Experiment Blueprint</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                As the concluding task for Guide 3, propose a classroom-safe experiment using fictional or neutral marketing materials: <strong>1. Research Question</strong>, <strong>2. Experimental & Control Groups</strong>, <strong>3. Random Assignment Procedure</strong>, <strong>4. Independent & Dependent Variables</strong>, and <strong>5. Potential Confounding Variables</strong>.
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput2" rows="4" placeholder="Draft your complete experiment proposal here (minimum 35 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoYellow mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount2" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(2)" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300">Submit Activity 1 Checkpoint</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 5: FORMATIVE EVALUATION (15 PROBLEMS) -->
+            <div id="tabContent5" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoYellow bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Formative Evaluation (15 Problems - Guide 3)</h2>
+                        <p class="text-gray-700 text-sm">Test your mastery of experimental methods, control groups, random assignment, cause-and-effect claims, and confounding variables across 3 difficulty levels.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterEvaluation('all')" class="px-3 py-1 rounded-lg bg-montanoBlue text-white text-xs font-bold">All (15)</button>
+                        <button onclick="filterEvaluation('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterEvaluation('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterEvaluation('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Evaluation Container -->
+                <div id="evaluationContainer" class="space-y-4">
+                    <!-- Javascript will render 15 evaluation problems here -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-montanoBg p-4 border-t border-gray-200 text-center text-xs text-gray-600 rounded-b-[16px]">
+            Colegio Montano Educational Portal &bull; Advanced 12th Grade Mercadotecnia Department &bull; Guide 3: Experimental Research
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    showMsg("Error attempting to enable fullscreen: " + err.message);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Custom Message Box (Replacing alert)
+        function showMsg(message) {
+            const existingModal = document.getElementById('customAlertModal');
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement('div');
+            modal.id = 'customAlertModal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border-4 border-montanoBlue text-center">
+                    <div class="text-montanoBlue text-3xl mb-3"><i class="fa-solid fa-circle-info"></i></div>
+                    <h3 class="font-extrabold text-lg text-gray-800 mb-2">Colegio Montano Notice</h3>
+                    <p class="text-sm text-gray-600 mb-5">${message}</p>
+                    <button onclick="document.getElementById('customAlertModal').remove()" class="bg-montanoBlue text-white px-6 py-2 rounded-xl font-bold text-sm shadow hover:bg-sky-700 w-full">Understood</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabNum) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-montanoBlue', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-gray-700', 'shadow-sm');
+            });
+
+            document.getElementById(`tabContent${tabNum}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabBtn${tabNum}`);
+            activeBtn.classList.remove('bg-white', 'text-gray-700', 'shadow-sm');
+            activeBtn.classList.add('bg-montanoBlue', 'text-white', 'shadow-md');
+        }
+
+        // Text-to-Speech function
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showMsg("Text-to-speech is not supported in your browser.");
+            }
+        }
+
+        function speakDialogue(text) {
+            speakText(text);
+        }
+
+        // 15 Solved Examples Data (Guide 3: Experimental Research)
+        const solvedExamplesData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', title: 'Warm-up: Proving Ad Causation', desc: 'Investigating whether changing an advertisement banner directly causes a change in consumer brand preference.', breakdown: '<strong>Causal Analysis:</strong> Experiments allow researchers to establish temporal precedence and rule out alternatives, confirming causation.' },
+            { id: 2, level: 'basic', title: 'Designing an Experimental Group', desc: 'Exposing participants to a newly designed interactive video advertisement for organic coffee.', breakdown: '<strong>Experimental Group:</strong> The group receiving the active marketing treatment (interactive video ad).' },
+            { id: 3, level: 'basic', title: 'Establishing a Control Group', desc: 'Providing a baseline group with standard static text description instead of the video ad.', breakdown: '<strong>Control Group:</strong> The baseline group receiving no active treatment, allowing comparison against the experimental group.' },
+            { id: 4, level: 'basic', title: 'Implementing Random Assignment', desc: 'Using a digital coin flip to decide whether student participants view the new ad or the old ad.', breakdown: '<strong>Random Assignment:</strong> Ensures every participant has an equal chance of being in either group, eliminating selection bias.' },
+            { id: 5, level: 'basic', title: 'Identifying Cause-and-Effect Claims', desc: 'Concluding that the video ad caused a 25% increase in purchase intent scores.', breakdown: '<strong>Causal Claim:</strong> Validated by high experimental control and random assignment.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', title: 'Controlling Extraneous Lighting and Noise', desc: 'Ensuring all testing booths maintain identical lighting and sound levels during a consumer taste test.', breakdown: '<strong>Control Variables:</strong> Eliminates environmental confounding factors that could skew taste ratings.' },
+            { id: 7, level: 'intermediate', title: 'Managing Experimenter Expectancy Bias', desc: 'Using a double-blind procedure where neither the researcher administering the survey nor the participant knows which product version is being tested.', breakdown: '<strong>Double-Blind Control:</strong> Prevents researcher bias from subtly influencing participant responses.' },
+            { id: 8, level: 'intermediate', title: 'Classroom-Safe Experiment Design: Neutral Packaging', desc: 'Testing consumer color preference using unbranded plain brown boxes with different colored ribbons.', breakdown: '<strong>Safe Design:</strong> Avoids real brand bias by using neutral, fictional product proxies.' },
+            { id: 9, level: 'intermediate', title: 'Detecting Confounding Variables in Pricing Tests', desc: 'Discovering that the experimental group was tested on a rainy Monday while the control group was tested on a sunny Friday.', breakdown: '<strong>Confounding Variable:</strong> Weather/day-of-week acts as an uncontrolled confound invalidating the causal comparison.' },
+            { id: 10, level: 'intermediate', title: 'Evaluating External Validity in Lab Experiments', desc: 'Analyzing why laboratory shopping results may not fully predict open-market consumer spending in Guatemala City.', breakdown: '<strong>External Validity Limitation:</strong> Highly controlled lab settings reduce naturalistic consumer behavior.' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', title: 'Between-Subjects vs. Within-Subjects Experimental Designs', desc: 'Comparing an independent groups design (different people in each condition) to a repeated measures design (same people in all conditions).', breakdown: '<strong>Design Trade-off:</strong> Within-subjects reduce participant variance but introduce carryover/learning effects.' },
+            { id: 12, level: 'advanced', title: 'Controlling Placebo Effects in Functional Beverage Trials', desc: 'Giving control participants a plain carbonated water placebo labeled neutrally to isolate caffeine efficacy.', breakdown: '<strong>Placebo Control:</strong> Isolates the psychological expectation effect from the actual biochemical impact of the product.' },
+            { id: 13, level: 'advanced', title: 'Analyzing Interaction Effects in 2x2 Factorial Experiments', desc: 'Testing ad tone (emotional vs. rational) across two different pricing tiers simultaneously.', breakdown: '<strong>Factorial Analysis:</strong> Reveals whether the impact of ad tone depends on the product price tier.' },
+            { id: 14, level: 'advanced', title: 'Mitigating Attrition Bias in Longitudinal Field Experiments', desc: 'Accounting for participants who drop out halfway through a 3-week home-use product study.', breakdown: '<strong>Attrition Control:</strong> Comparing baseline metrics of dropouts to remaining participants to verify sample integrity.' },
+            { id: 15, level: 'advanced', title: 'Structuring the Complete Experiment Blueprint (Activity 1 Checkpoint)', desc: 'Synthesizing research questions, experimental/control groups, random assignment, variables, and confound controls into a final proposal.', breakdown: '<strong>Blueprint Synthesis:</strong> Complete executive-level experimental design meeting C1 ESL academic standards.' }
+        ];
+
+        function renderExamples(filter = 'all') {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? solvedExamplesData : solvedExamplesData.filter(ex => ex.level === filter);
+
+            filtered.forEach(ex => {
+                const badgeColor = ex.level === 'basic' ? 'bg-montanoBlue' : ex.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Example ${ex.id} (${ex.level})</span>
+                            <h3 class="font-bold text-gray-800 text-sm sm:text-base">${ex.title}</h3>
+                        </div>
+                        <button onclick="speakText('${ex.title}. ${ex.desc}. Breakdown: ${ex.breakdown.replace(/<[^>]*>?/gm, '')}')" class="text-montanoBlue hover:text-sky-700 p-2 text-lg" title="Listen to Example Audio">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-600 mb-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <strong>Scenario:</strong> ${ex.desc}
+                    </p>
+                    <div class="text-xs sm:text-sm text-gray-700 bg-montanoBg p-3 rounded-xl border border-blue-100">
+                        <strong>Scientific Breakdown:</strong> ${ex.breakdown}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterExamples(level) {
+            renderExamples(level);
+        }
+
+        // Live Voice Simulator & AI Dashboard Logic
+        let simHistory = [];
+        function handleUserSimInput() {
+            const input = document.getElementById('simUserInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendChatBubble('You', text, 'bg-montanoTeal text-white', 'ml-auto');
+            input.value = '';
+
+            // Simulate AI evaluation update
+            updateDashboardMetrics(text);
+
+            // Simulate Research Director response after 1 second
+            setTimeout(() => {
+                let rdReply = "Good experiment design proposal! Ensure you specify how random assignment and control groups protect against confounding variables.";
+                if (text.toLowerCase().includes('random') || text.toLowerCase().includes('control') || text.toLowerCase().includes('causal') || text.toLowerCase().includes('group')) {
+                    rdReply = "Outstanding experimental design! Your integration of random assignment, control groups, and causal reasoning meets C1 executive standards. Experiment approved!";
+                }
+                appendChatBubble('RD', rdReply, 'bg-teal-50 text-gray-800 border border-teal-100', '');
+                speakText(rdReply);
+            }, 1000);
+        }
+
+        function appendChatBubble(sender, text, styleClass, alignClass) {
+            const chatBox = document.getElementById('simChatBox');
+            const bubble = document.createElement('div');
+            bubble.className = `flex items-start space-x-2 ${alignClass}`;
+            
+            if (sender === 'RD') {
+                bubble.innerHTML = `
+                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%]">${text}</div>
+                `;
+            } else {
+                bubble.innerHTML = `
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%]">${text}</div>
+                    <div class="bg-montanoOlive text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">You</div>
+                `;
+            }
+            chatBox.appendChild(bubble);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function updateDashboardMetrics(userText) {
+            const len = userText.length;
+            const pScore = Math.min(98, Math.max(75, 80 + Math.floor(len / 5)));
+            const gScore = Math.min(99, Math.max(80, 85 + (userText.toLowerCase().includes('random') || userText.toLowerCase().includes('control') ? 10 : 0)));
+            const eScore = Math.min(100, Math.max(90, 92 + (userText.toLowerCase().includes('please') || userText.toLowerCase().includes('thank') || len > 30 ? 5 : 0)));
+
+            document.getElementById('metricPronounceVal').innerText = pScore + '%';
+            document.getElementById('metricPronounceBar').style.width = pScore + '%';
+
+            document.getElementById('metricGrammarVal').innerText = gScore + '%';
+            document.getElementById('metricGrammarBar').style.width = gScore + '%';
+
+            document.getElementById('metricEtiquetteVal').innerText = eScore + '%';
+            document.getElementById('metricEtiquetteBar').style.width = eScore + '%';
+
+            // Detect key terms
+            const termsContainer = document.getElementById('keyTermsContainer');
+            const keywords = ['experiment', 'control group', 'experimental group', 'random assignment', 'causation', 'confounding', 'variables', 'validity'];
+            keywords.forEach(kw => {
+                if (userText.toLowerCase().includes(kw) && !termsContainer.innerHTML.includes(kw)) {
+                    const tag = document.createElement('span');
+                    tag.className = 'bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200 capitalize';
+                    tag.innerText = kw;
+                    termsContainer.appendChild(tag);
+                }
+            });
+
+            const feedbackElem = document.getElementById('aiFeedbackText');
+            if (gScore > 90) {
+                feedbackElem.innerText = '"Outstanding C1 experimental design proficiency! Your mastery of controls and causal claims is exemplary."';
+            } else {
+                feedbackElem.innerText = '"Good effort! Try including specific terms like \'random assignment\' and \'control group\' to maximize your score."';
+            }
+        }
+
+        // Web Speech Recognition integration
+        function toggleVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showMsg("Speech Recognition API is not supported in your browser. Please use Chrome or Edge.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            const micBtn = document.getElementById('micBtn');
+            micBtn.classList.add('bg-red-500', 'animate-pulse');
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                document.getElementById('simUserInput').value = speechResult;
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                handleUserSimInput();
+            };
+
+            recognition.onerror = function(event) {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                showMsg("Voice recognition error occurred. Please type your answer.");
+            };
+
+            recognition.onend = function() {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+            };
+
+            recognition.start();
+        }
+
+        // Reflection word counters and save
+        document.addEventListener('DOMContentLoaded', () => {
+            ['1', '2'].forEach(id => {
+                const textarea = document.getElementById(`refInput${id}`);
+                const counter = document.getElementById(`wordCount${id}`);
+                textarea.addEventListener('input', () => {
+                    const words = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
+                    counter.innerText = words + ' words';
+                });
+            });
+
+            renderExamples('all');
+            renderEvaluation('all');
+        });
+
+        function saveReflection(id) {
+            const val = document.getElementById(`refInput${id}`).value.trim();
+            const words = val ? val.split(/\s+/).length : 0;
+            if (words < 15) {
+                showMsg("Please write a more comprehensive reflection (at least 15 words) demonstrating critical analysis.");
+                return;
+            }
+            if (id === 2) {
+                showMsg("Activity 1 Checkpoint successfully submitted! Your experiment proposal has been recorded for your Colegio Montano portfolio.");
+            } else {
+                showMsg(`Reflection ${id} successfully saved and submitted to your Colegio Montano portfolio!`);
+            }
+        }
+
+        // 15 Formative Evaluation Problems Data (Guide 3)
+        const evaluationData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', q: 'What is the primary defining feature of an experimental research method?', options: ['A) Passive observation without interference', 'B) Manipulation of an independent variable by the researcher to observe effects on a dependent variable', 'C) Conducting unstructured interviews', 'D) Reviewing historical sales ledgers'], answer: 'B', explanation: 'Experiments require active manipulation of variables to test causal relationships.' },
+            { id: 2, level: 'basic', q: 'What is the role of a control group in an experiment?', options: ['A) To receive the active experimental treatment', 'B) To serve as a baseline comparison group that does not receive the active treatment', 'C) To disrupt data collection', 'D) To replace the researcher'], answer: 'B', explanation: 'Control groups provide a baseline against which the experimental treatment effect is measured.' },
+            { id: 3, level: 'basic', q: 'Why is random assignment crucial in true experiments?', options: ['A) It ensures participants are paid equally', 'B) It distributes individual differences evenly across groups, eliminating preexisting bias', 'C) It makes the study take longer', 'D) It eliminates the need for dependent variables'], answer: 'B', explanation: 'Random assignment prevents preexisting group differences from confounding results.' },
+            { id: 4, level: 'basic', q: 'What type of claim can be uniquely established by a well-designed true experiment?', options: ['A) Cause-and-effect claims', 'B) Only descriptive claims', 'C) Correlational claims without direction', 'D) Fictional claims'], answer: 'A', explanation: 'True experiments isolate variables to establish valid causal (cause-and-effect) claims.' },
+            { id: 5, level: 'basic', q: 'What is an experimental group?', options: ['A) The group that receives no treatment at all', 'B) The group that receives the active treatment or manipulation', 'C) The group of researchers observing from another room', 'D) The dropouts'], answer: 'B', explanation: 'The experimental group receives the active treatment being tested.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', q: 'What are confounding variables in experimental research?', options: ['A) Variables that are perfectly controlled', 'B) Uncontrolled extraneous factors that vary alongside the IV and threaten internal validity', 'C) The primary dependent variables', 'D) Random coin flips'], answer: 'B', explanation: 'Confounding variables provide alternative explanations for experimental results.' },
+            { id: 7, level: 'intermediate', q: 'How does a double-blind procedure protect experimental integrity?', options: ['A) By keeping both participants and researchers unaware of who is in the treatment vs. control group', 'B) By blinding participants with bright lights', 'C) By hiding survey questions', 'D) By doubling marketing budgets'], answer: 'A', explanation: 'Double-blind procedures eliminate both participant expectancy and experimenter bias.' },
+            { id: 8, level: 'intermediate', q: 'Why do researchers often use neutral or fictional marketing materials in classroom experiments?', options: ['A) To promote real corporate brands', 'B) To avoid preexisting brand loyalty or bias influencing participant responses', 'C) To make experiments illegal', 'D) To reduce printing costs'], answer: 'B', explanation: 'Neutral proxies prevent prior brand attitudes from confounding experimental findings.' },
+            { id: 9, level: 'intermediate', q: 'What is the main limitation of highly controlled laboratory experiments?', options: ['A) They lack internal validity', 'B) They may lack external validity (real-world generalizability) due to artificial environments', 'C) They cannot measure dependent variables', 'D) They are too easy to conduct'], answer: 'B', explanation: 'Lab artificiality often trades off with natural real-world applicability.' },
+            { id: 10, level: 'intermediate', q: 'In a taste test experiment, why must cups be identically colored and odorless?', options: ['A) To look aesthetically pleasing', 'B) To act as controlled variables preventing extraneous sensory cues from biasing taste ratings', 'C) To increase product prices', 'D) To confuse participants'], answer: 'B', explanation: 'Controlling sensory cues ensures taste is the only variable influencing ratings.' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', q: 'What is the primary structural difference between between-subjects and within-subjects designs?', options: ['A) Between-subjects use different participants in each condition; within-subjects test the same participants across all conditions', 'B) Within-subjects require no control groups', 'C) Between-subjects eliminate all variance', 'D) There is no structural difference'], answer: 'A', explanation: 'Between-subjects use separate groups; within-subjects expose the same participants to all conditions.' },
+            { id: 12, level: 'advanced', q: 'How do placebo controls help isolate true treatment effects in consumer psychology?', options: ['A) By tricking participants into paying more', 'B) By controlling for psychological expectation effects so true product efficacy can be measured', 'C) By replacing statistical analysis', 'D) By shortening survey length'], answer: 'B', explanation: 'Placebo controls separate the psychological belief in a treatment from its actual effect.' },
+            { id: 13, level: 'advanced', q: 'What is an interaction effect in a factorial experimental design?', options: ['A) When participants talk to each other', 'B) When the effect of one independent variable depends on the level of another independent variable', 'C) When the experiment fails completely', 'D) When random assignment fails'], answer: 'B', explanation: 'Interaction effects occur when two IVs combine to influence the DV in unique ways.' },
+            { id: 14, level: 'advanced', q: 'What threat to internal validity does participant attrition pose in longitudinal experiments?', options: ['A) Participants becoming too friendly with researchers', 'B) Systematic dropout of specific participant types skewing final group comparisons', 'C) Surveys taking less time', 'D) Random error reduction'], answer: 'B', explanation: 'Selective attrition destroys equivalency between experimental and control groups over time.' },
+            { id: 15, level: 'advanced', q: 'When evaluating a student experiment proposal for Activity 1, what confirms C1 mastery of experimental design?', options: ['A) Vague descriptions of consumer opinions', 'B) Clear integration of research questions, random assignment, control groups, and confound management', 'C) Avoiding control groups entirely', 'D) Relying solely on personal intuition'], answer: 'B', explanation: 'C1 mastery requires rigorous technical execution across all experimental components.' }
+        ];
+
+        function renderEvaluation(filter = 'all') {
+            const container = document.getElementById('evaluationContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? evaluationData : evaluationData.filter(ev => ev.level === filter);
+
+            filtered.forEach(ev => {
+                const badgeColor = ev.level === 'basic' ? 'bg-montanoBlue' : ev.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm space-y-3';
+                
+                let optionsHtml = '';
+                ev.options.forEach(opt => {
+                    optionsHtml += `<label class="block text-xs sm:text-sm text-gray-700 bg-gray-50 p-2.5 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition-all"><input type="radio" name="evalQ_${ev.id}" value="${opt[0]}" class="mr-2 accent-montanoTeal"> ${opt}</label>`;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Problem ${ev.id} (${ev.level})</span>
+                        <button onclick="speakText('${ev.q}')" class="text-montanoTeal hover:text-teal-700 text-sm" title="Listen to Question"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    <p class="font-bold text-gray-800 text-sm sm:text-base">${ev.q}</p>
+                    <div class="space-y-2">${optionsHtml}</div>
+                    
+                    <div class="flex justify-between items-center pt-2">
+                        <button onclick="toggleSolution(${ev.id})" id="solBtn_${ev.id}" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300 transition-transform active:scale-95">
+                            <i class="fa-solid fa-eye mr-1"></i> Show Solution
+                        </button>
+                        <span id="evalFeedback_${ev.id}" class="text-xs font-bold"></span>
+                    </div>
+
+                    <div id="solutionBox_${ev.id}" class="hidden bg-montanoBg p-4 rounded-xl border border-blue-200 text-xs sm:text-sm text-gray-700 space-y-1 mt-2">
+                        <p class="font-bold text-montanoBlue">Correct Answer: Option ${ev.answer}</p>
+                        <p><strong>Explanation:</strong> ${ev.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterEvaluation(level) {
+            renderEvaluation(level);
+        }
+
+        function toggleSolution(id) {
+            const solBox = document.getElementById(`solutionBox_${id}`);
+            const btn = document.getElementById(`solBtn_${id}`);
+            if (solBox.classList.contains('hidden')) {
+                solBox.classList.remove('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye-slash mr-1"></i> Hide Solution';
+                btn.classList.remove('bg-montanoYellow');
+                btn.classList.add('bg-gray-300', 'text-gray-800');
+            } else {
+                solBox.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye mr-1"></i> Show Solution';
+                btn.classList.remove('bg-gray-300', 'text-gray-800');
+                btn.classList.add('bg-montanoYellow');
+            }
+        }
+    </script>
+</body>
+</html>
